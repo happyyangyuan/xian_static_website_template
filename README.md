@@ -1,5 +1,5 @@
 # xian_static_website_template
-前端站点模板代码
+本代码库提供前端站点模板代码，与[后端模板代码](https://github.com/happyyangyuan/xian_apiserver_allineone_template)配合使用可以实现前端分离的快速开发框架效能。
 
 ## 前后端分离的支持
 本代码模板提供的前端独立部署方案是基于
