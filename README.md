@@ -21,9 +21,8 @@ COPY webroot /usr/share/nginx/html
 COPY nginx /etc/nginx/conf.d
 ```
 #### NGINX配置文件
-[nginx默认配置文件](nginx/default.conf)  
-文件内容见代码
-[nginx自定义反向代理配置](nginx/custom.conf)
+[nginx默认配置文件](nginx/default.conf)，文件内容请点连接跳转到代码查看。  
+[nginx自定义反向代理配置](nginx/custom.conf)如下
 ```nginx.conf
 # 我们自定义的配置文件
 server {
