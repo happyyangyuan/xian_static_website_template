@@ -1,0 +1,50 @@
+apiVersion: apps/v1beta2
+kind: Deployment
+metadata:
+  labels:
+    workload.user.cattle.io/workloadselector: deployment-${CICD_GIT_BRANCH}-${CICD_GIT_REPO_NAME}
+  name: ${CICD_GIT_REPO_NAME}
+  namespace: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}
+spec:
+  selector:
+    matchLabels:
+      workload.user.cattle.io/workloadselector: deployment-${CICD_GIT_BRANCH}-${CICD_GIT_REPO_NAME}
+  template:
+    metadata:
+      labels:
+        workload.user.cattle.io/workloadselector: deployment-${CICD_GIT_BRANCH}-${CICD_GIT_REPO_NAME}
+    spec:
+      containers:
+      - image: ${CICD_REGISTRY}/${CICD_IMAGE}:${CICD_GIT_BRANCH}-${CICD_EXECUTION_SEQUENCE}
+        name: ${CICD_GIT_REPO_NAME}
+        ports:
+        - containerPort: 80
+          name: 80tcp01
+          protocol: TCP
+        resources:
+          limits:
+            cpu: "1"
+            memory: 512Mi
+          requests:
+            cpu: 100m
+      imagePullSecrets:
+      - name: harbor
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ${CICD_GIT_REPO_NAME}-nodeport
+  namespace: ${CICD_GIT_REPO_NAME}-${CICD_GIT_BRANCH}
+spec:
+  ports:
+  - name: 80tcp01
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    workload.user.cattle.io/workloadselector: deployment-${CICD_GIT_BRANCH}-${CICD_GIT_REPO_NAME}
+  type: NodePort
+
+
+

@@ -1,0 +1,7 @@
+# IDE
+*.iml
+.idea
+.DS_Store
+.eclipse
+.project
+

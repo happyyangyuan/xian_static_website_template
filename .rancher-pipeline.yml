@@ -1,0 +1,24 @@
+stages:
+- name: compile
+  steps:
+  - runScriptConfig:
+      image: node
+      shellScript: |-
+        # 修改一下你的路径
+        cd xxx/xxx
+        npm i
+        npm run build/dev
+- name: frontend image
+  steps:
+  - publishImageConfig:
+      dockerfilePath: ./Dockerfile
+      buildContext: .
+      tag: ${CICD_IMAGE}:${CICD_GIT_BRANCH}-${CICD_EXECUTION_SEQUENCE}
+      pushRemote: true
+      # 修改一下你的镜像私服地址
+      registry: harbor.cedarhd.com
+- name: deploy
+  steps:
+  - applyYamlConfig:
+      path: ./deployment.yaml
+timeout: 60
