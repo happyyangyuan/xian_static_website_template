@@ -11,7 +11,7 @@
 ### NGINX代理到后端服务
 1. 通过Dockerfile构建NGINX镜像，将前端代码打包到NGINX镜像内
 #### NGINX镜像Dockerfile示例
-```
+```Dockerfile
 FROM nginx:latest
 
 # 你需要适当修改本行COPY命令，将你的静态资源构建输出物复制到NGINX镜像内默认的web资源路径内
